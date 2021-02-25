@@ -1,5 +1,5 @@
 # DU-Clock
-Dual Universe clock with real and in game time
+Dual Universe clock with real and in-game time
 
 **How to install**
 
