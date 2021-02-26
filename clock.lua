@@ -26,22 +26,22 @@ local time_shift_4 = 1 --export: time shift in relative hours
 -- VARIABLES ------------
 -------------------------	
 local timesToShow = {}
-timesToShow{1] = {
+timesToShow[1] = {
 	text = text_time_1,
 	dayDuration = day_duration_1,
 	timeShift = time_shift_1
 }
-timesToShow{2] = {
+timesToShow[2] = {
 	text = text_time_2,
 	dayDuration = day_duration_2,
 	timeShift = time_shift_2
 }
-timesToShow{3] = {
+timesToShow[3] = {
 	text = text_time_3,
 	dayDuration = day_duration_3,
 	timeShift = time_shift_3
 }
-timesToShow{4] = {
+timesToShow[4] = {
 	text = text_time_4,
 	dayDuration = day_duration_4,
 	timeShift = time_shift_4
@@ -102,7 +102,7 @@ local function validateData()
 		local dayDuration = timeToShow.dayDuration
 		local timeShift = timeToShow.timeShift
 
-		if text and text ~= "" and dayDuration and dayDuration > 0 and timeShift and timeShift > 0 then
+		if text and text ~= "" and dayDuration and dayDuration > 0 and timeShift then
 			--data validated
 			if minDayDuration > dayDuration then minDayDuration = dayDuration end
 			if minDayDuration < 0.5 then minDayDuration = 0.5 end
@@ -126,10 +126,10 @@ function update()
 		end
 	end
 	
-	local html = string.format(htmlTemplate,table.concat(htmlRows,htmlSplitRows)
+	local html = string.format(htmlTemplate,table.concat(htmlRows,htmlSplitRows))
 	
 	for _, screen in ipairs(screens) do
-		screen.setHTML(html))
+		screen.setHTML(html)
 	end
 end
 
@@ -138,12 +138,12 @@ end
 -------------------------
 initiateSlots()
 validateData()
-update()
 
 -------------------------
 -- UPDATE TIMER ---------
 -------------------------
 unit.setTimer("update",minDayDuration/24)
+
 
 
 -------------------------
