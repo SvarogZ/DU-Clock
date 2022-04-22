@@ -1,17 +1,10 @@
-local json = require "dkjson"
-
 -------------------------
 -- USER DEFINED DATA ----
 -------------------------
 local clock_name = "In Game"--export: clock name
 local time_offset = 1--export: time offsset in hours
-local day_duration = 10--export: day duration in hours, def=24, in_game=10
-
-local screenData = {
-	text = clock_name,
-	dayDuration = time_offset,
-	timeOffset = day_duration
-}
+local in_game_time = true--export: select false if real time
+local day_duration = in_game_time and 10 or 24
 
 local turnScreen = false--export: turn screen to 90deg
 local fontName = "FiraMono"
@@ -57,18 +50,49 @@ local function getTextNumber(n)
 	return n
 end
 
-local function sendToPB(screenData)
-	local dataOutput = {
-		dayDuration = screenData.dayDuration,
-		timeOffset = screenData.timeOffset
-	}
+local function getTime(t, timeOffset, dayDuration)
+	if not timeOffset then timeOffset = 0 end
+	if not dayDuration then dayDuration = 24 end
+	
+	t = (t + timeOffset * 3600) * 24 / dayDuration
 
-	setOutput(json.encode(dataOutput))
+	--local day = math.floor(t/86400)
+	t = t%86400
+	local hour = math.floor(t/3600)
+	t = t%3600
+	local minute = math.floor(t/60)
+	t = t%60
+	local second = math.floor(t)
+	
+	return hour, minute, second
 end
 
 local function processData(dataFromPB)
-	if dataFromPB then
-		return dataFromPB.h, dataFromPB.m, dataFromPB.s
+	if dataFromPB and dataFromPB~="" then
+		local dataFromPbNumber = tonumber(dataFromPB)
+		local deltaTime = getDeltaTime()
+		
+		if initialTime ~= dataFromPbNumber then
+			initialTime = dataFromPbNumber
+			currentTime = dataFromPbNumber
+		else 
+			currentTime = currentTime + deltaTime
+		end
+		
+		if deltaTime == 0 then deltaTime = 1 end
+		local factor = day_duration / 24 / deltaTime 
+		
+		if fps then
+			fps = math.floor(fps * factor)
+		else
+			fps = 30
+		end
+		
+		if fps < 10 then fps = 10 end
+
+		requestAnimationFrame(fps)
+		
+		return getTime(currentTime, time_offset, day_duration)
 	else
 		return 0,0,0
 	end
@@ -77,9 +101,8 @@ end
 -------------------------
 -- CODE -----------------
 -------------------------
-sendToPB(screenData)
+local dataFromPB = getInput()
 
-local dataFromPB = json.decode(getInput())
 local hour, minute, second = processData(dataFromPB)
 
 local screenColor, clockColor
@@ -97,7 +120,7 @@ setBackgroundColor (r, g, b)
 r,g,b = hex2rgb(clockColor)
 setDefaultFillColor (mainLayer, 6, r, g, b, 1)--text
 
-local clockName = screenData.text
+local clockName = clock_name
 local timeToShow = getTextNumber(hour) .. ":" .. getTextNumber(minute) .. ":" .. getTextNumber(second)
 
 setNextTextAlign (mainLayer, 1, 3)
