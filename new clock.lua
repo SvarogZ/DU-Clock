@@ -20,7 +20,7 @@ local time_offset_2 = 1 --export: time offsset in hours
 -- VARIABLES ------------
 -------------------------	
 local timesToShow = {}
-table.insert(timesToShow,{text = "In Game",dayDuration = in_game_day_duration_1,timeOffset = in_game_time_offset})
+table.insert(timesToShow,{text = "In Game",dayDuration = in_game_day_duration,timeOffset = in_game_time_offset})
 table.insert(timesToShow,{text = "Real GTM"})
 table.insert(timesToShow,{text = "Your Time", timeOffset = system.getUtcOffSet()/3600})
 table.insert(timesToShow,{text = text_time_1,timeOffset = time_offset_1})
