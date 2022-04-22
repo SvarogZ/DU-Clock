@@ -21,5 +21,6 @@ local fontSize = 140 --export: font size
 local screen_day_color = "#F6F8FF" --export
 local screen_night_color = "#012288" --export
 local clock_day_color = "#012288" --export
-local clock_night_color = "#F6F8FF" --export```
+local clock_night_color = "#F6F8FF" --export
+```
 5. connect "detection zone" to the PB
