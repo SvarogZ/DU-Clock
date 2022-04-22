@@ -2,18 +2,19 @@
 -- USER DEFINED DATA ----
 -------------------------
 local clock_name = "In Game"--export: clock name
-local time_offset = 1--export: time offsset in hours
-local in_game_time = true--export: select false if real time
+local time_offset = 0--export: time offsset in hours
+local in_game_time = true --export: select false if real time
 local day_duration = in_game_time and 10 or 24
+time_offset = in_game_time and time_offset*10/24 or time_offset
 
-local turnScreen = false--export: turn screen to 90deg
+local turnScreen = false --export: turn screen to 90deg
 local fontName = "FiraMono"
-local fontSize = 25
+local fontSize = 120 --export: font size
 
-local screen_day_color = "#979A9A" --export
-local screen_night_color = "#979A9A" --export
-local clock_day_color = "#000" --export
-local clock_night_color = "#fff" --export
+local screen_day_color = "#F6F8FF" --export
+local screen_night_color = "#012288" --export
+local clock_day_color = "#012288" --export
+local clock_night_color = "#F6F8FF" --export
 
 -------------------------
 -- VARIABLES ------------
@@ -85,10 +86,10 @@ local function processData(dataFromPB)
 		if fps then
 			fps = math.floor(fps * factor)
 		else
-			fps = 30
+			fps = 1
 		end
 		
-		if fps < 10 then fps = 10 end
+		if fps < 5 then fps = 5 end
 
 		requestAnimationFrame(fps)
 		
@@ -120,10 +121,9 @@ setBackgroundColor (r, g, b)
 r,g,b = hex2rgb(clockColor)
 setDefaultFillColor (mainLayer, 6, r, g, b, 1)--text
 
-local clockName = clock_name
+local clockName = clock_name.." "
 local timeToShow = getTextNumber(hour) .. ":" .. getTextNumber(minute) .. ":" .. getTextNumber(second)
 
 setNextTextAlign (mainLayer, 1, 3)
 addText(mainLayer, font, clockName, screenWidth/2, screenHeight/3)
 setNextTextAlign (mainLayer, 1, 3)
-addText(mainLayer, font, timeToShow, screenWidth/2, screenHeight*2/3)
