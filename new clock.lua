@@ -8,7 +8,6 @@ local screen_color = "#979A9A" --export: background color
 
 local in_game_time_offset = 1--export: in game time offsset in hours (24h)
 local in_game_day_duration = 10
-in_game_time_offset = in_game_time_offset*10/24
 
 local text_time_1 = "Real KZ" --export: leave empty "" to miss this time
 local time_offset_1 = 18 --export: time offsset in hours
@@ -62,7 +61,7 @@ local function getTime(timeOffset, dayDuration)
 	if not dayDuration then dayDuration = 24 end
 	
 	--local t = system.getArkTime() + timeOffset * 3600
-	local t = system.getTime() + timeOffset * 3600
+	local t = (system.getTime() + timeOffset * 3600) * 24 / dayDuration
 
 	local function getTextNumber(n)
 		local n = tostring(n)
@@ -70,8 +69,8 @@ local function getTime(timeOffset, dayDuration)
 		return n
 	end
 
-	local day = getTextNumber(math.floor(t/(dayDuration*3600)))
-	t = t%(dayDuration*3600)
+	local day = getTextNumber(math.floor(t/86400))
+	t = t%86400
 	local hour = getTextNumber(math.floor(t/3600))
 	t = t%3600
 	local minute = getTextNumber(math.floor(t/60))
