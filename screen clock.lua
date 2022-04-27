@@ -27,11 +27,11 @@ local font = loadFont(fontName, fontSize)
 local mainLayer = createLayer()
 
 if turnScreen then
-	setLayerRotation(mainLayer,(6.285*0.75))
-	setLayerTranslation(mainLayer,25,600)
 	local temp = screenWidth
 	screenWidth = screenHeight
 	screenHeight = temp
+	setLayerRotation(mainLayer,math.pi/2)
+	setLayerTranslation(mainLayer,screenHeight,0)
 end
 
 -------------------------
