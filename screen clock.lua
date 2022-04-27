@@ -2,7 +2,7 @@
 -- USER DEFINED DATA ----
 -------------------------
 local clock_name = "In Game"--export: clock name
-local time_offset = 2 --export: time offsset in hours
+local time_offset = 6.8 --export: time offsset in hours
 local in_game_time = true --export: select false if real time
 
 local turnScreen = false --export: turn screen to 90deg
