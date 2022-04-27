@@ -26,6 +26,6 @@ end
 initiateSlots()
 
 for _, screen in ipairs(screens) do
-	screen.setScriptInput(tostring(system.getTime()))
-	--screen.setScriptInput(tostring(system.getArkTime()))
+	--screen.setScriptInput(tostring(system.getTime()))
+	screen.setScriptInput(tostring(system.getArkTime()))
 end
