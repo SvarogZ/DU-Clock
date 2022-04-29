@@ -13,19 +13,19 @@ local fontSize = 80 --export: font size
 
 local day_time = 6
 local night_time = 18
-local screen_day_color = "#F6F8FF" --export
-local screen_night_color = "#012288" --export
-local clock_name_day_color = "#012288" --export
-local clock_name_night_color = "#F6F8FF" --export
+local screen_day_color = "#EAEBFF" --export
+local screen_night_color = "#4D54BC" --export
+local clock_name_day_color = "#4D54BC" --export
+local clock_name_night_color = "#EAEBFF" --export
 local clock_number_day_color = "#000" --export
-local clock_number_night_color = "#000" --export
+local clock_number_night_color = "#fff" --export
 
-local analogue_clock_circle_day_color = "#000"
-local analogue_clock_circle_night_color = "#fff"
-local analogue_clock_mark_day_color = "#fff"
-local analogue_clock_mark_night_color = "#000"
-local analogue_clock_arrow_day_color = "#fff"
-local analogue_clock_arrow_night_color = "#000"
+local analogue_clock_circle_day_color = "#DCDCDC"
+local analogue_clock_circle_night_color = "#838383"
+local analogue_clock_mark_day_color = "#000"
+local analogue_clock_mark_night_color = "#fff"
+local analogue_clock_arrow_day_color = "#000"
+local analogue_clock_arrow_night_color = "#fff"
 local analogue_clock_font_size = 50
 
 -------------------------
@@ -212,12 +212,17 @@ if show_analogue_clock then
 
 	local layer = createLayer()
 	setDefaultTextAlign(layer, 1, 2)
-	setLayerTranslation(layer,horizontalShift,verticalShift)
 	
+	local clockRadius
 	local turnAngle = 0
 	if turnScreen then
 		turnAngle = math.pi/2
 		setLayerRotation(layer,turnAngle)
+		setLayerTranslation(layer,screenHeight+horizontalShift,horizontalShift)
+		clockRadius = screenWidth/2*0.9
+	else
+		setLayerTranslation(layer,horizontalShift,verticalShift)
+		clockRadius = screenHeight/2*0.7
 	end
 
 	--circle color
@@ -228,7 +233,6 @@ if show_analogue_clock then
 	setDefaultFillColor(layer, 7, clockNumberColor[1], clockNumberColor[2], clockNumberColor[3], clockNumberColor[4])
 
 	-- draw the clock
-	local clockRadius = screenHeight/2*0.7
 	addCircle (layer, 0, 0, clockRadius)
 
 	for minutes = 1, 60, 1 do
@@ -241,24 +245,30 @@ if show_analogue_clock then
 		end
 	end
 	
-	--draw arrows
+	--draw hour arrow
 	local hourLayer = createLayer()
 	setLayerTranslation(hourLayer,horizontalShift,verticalShift)
 	setDefaultFillColor(hourLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(hourLayer, hour / 6 * math.pi + turnAngle)
-	addQuad(hourLayer, -5, 0, 5, 0, 5, -clockRadius*0.6, -5, -clockRadius*0.6)
-	
+	local arrowLength = clockRadius*0.6
+	local arrowHalfWidth = clockRadius*0.05
+	addQuad(hourLayer, -arrowHalfWidth, arrowLength/10, arrowHalfWidth, arrowLength/10, arrowHalfWidth/2, -arrowLength, -arrowHalfWidth/2, -arrowLength)
+	--draw minute arrow
 	local minuteLayer = createLayer()
 	setLayerTranslation(minuteLayer,horizontalShift,verticalShift)
 	setDefaultFillColor(minuteLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(minuteLayer, minute / 30 * math.pi + turnAngle)
-	addQuad(minuteLayer, -3, 0, 3, 0, 3, -clockRadius*0.8, -3, -clockRadius*0.8)
-	
+	local arrowLength = clockRadius*0.8
+	local arrowHalfWidth = clockRadius*0.03
+	addQuad(minuteLayer, -arrowHalfWidth, arrowLength/10, arrowHalfWidth, arrowLength/10, arrowHalfWidth/2, -arrowLength, -arrowHalfWidth/2, -arrowLength)
+	--draw second arrow
 	local secondLayer = createLayer()
 	setLayerTranslation(secondLayer,horizontalShift,verticalShift)
 	setDefaultFillColor(secondLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(secondLayer, second / 30 * math.pi + turnAngle)
-	addQuad(secondLayer, -2, 0, 2, 0, 2, -clockRadius, -2, -clockRadius)
+	local arrowLength = clockRadius*0.9
+	local arrowHalfWidth = clockRadius*0.02
+	addQuad(secondLayer, -arrowHalfWidth, arrowLength/10, arrowHalfWidth, arrowLength/10, arrowHalfWidth, -arrowLength, -arrowHalfWidth, -arrowLength)
 	
 else
 	local timeToShow = getTextNumber(hour) .. ":" .. getTextNumber(minute) .. ":" .. getTextNumber(second)
