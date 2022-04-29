@@ -24,5 +24,5 @@ local clock_day_color = "#012288" --export
 local clock_night_color = "#F6F8FF" --export
 ```
 5. connect "detection zone" to the PB
-![image](https://user-images.githubusercontent.com/26741332/164877454-a04eaeb3-a088-48b7-b03d-da82f8097489.png)
+![image](https://user-images.githubusercontent.com/26741332/165934111-fb020628-881b-435a-985a-58a2c076a1b8.png)
 
