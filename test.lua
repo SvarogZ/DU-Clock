@@ -135,7 +135,7 @@ end
 
 setBackgroundColor(screenColor[1], screenColor[2], screenColor[3])
 setDefaultFillColor(mainLayer, 7, clockNameColor[1], clockNameColor[2], clockNameColor[3], clockNameColor[4])--text
-setDefaultTextAlign(mainLayer, 1, 3)
+setDefaultTextAlign(mainLayer, 1, 2)
 local clockName = clock_name
 
 if show_analogue_clock then
@@ -211,7 +211,7 @@ if show_analogue_clock then
 	local verticalShift = screenHeight*0.6
 
 	local layer = createLayer()
-	setDefaultTextAlign(layer, 1, 3)
+	setDefaultTextAlign(layer, 1, 2)
 	setLayerTranslation(layer,horizontalShift,verticalShift)
 	
 	local turnAngle = 0
