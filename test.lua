@@ -9,7 +9,7 @@ local show_analogue_clock = true --export: select to show analogue 12 hour clock
 
 local turnScreen = false --export: turn screen to 90deg
 local fontName = "FiraMono"
-local fontSize = 140 --export: font size
+local fontSize = 80 --export: font size
 
 local day_time = 6
 local night_time = 18
@@ -17,8 +17,8 @@ local screen_day_color = "#F6F8FF" --export
 local screen_night_color = "#012288" --export
 local clock_name_day_color = "#012288" --export
 local clock_name_night_color = "#F6F8FF" --export
-local clock_number_day_color = "#012288" --export
-local clock_number_night_color = "#F6F8FF" --export
+local clock_number_day_color = "#000" --export
+local clock_number_night_color = "#000" --export
 
 local analogue_clock_circle_day_color = "#000"
 local analogue_clock_circle_night_color = "#fff"
@@ -130,7 +130,7 @@ if hour > day_time and hour < night_time then
 else
 	screenColor = hex2rgb(screen_night_color)
 	clockNameColor = hex2rgb(clock_name_night_color)
-	clockNumberColor = hex2rgb(clock_number_nigh_color)
+	clockNumberColor = hex2rgb(clock_number_night_color)
 end
 
 setBackgroundColor(screenColor[1], screenColor[2], screenColor[3])
@@ -153,7 +153,7 @@ if show_analogue_clock then
 		clockArrowColor = hex2rgb(analogue_clock_arrow_night_color)
 	end
 
-	local fontSize = analogue_clock_number_size
+	local fontSize = analogue_clock_font_size
 	setFontSize(font, fontSize)
 	
 	local function drawClockMark(layer, minutes, font, markColor, textColor, textRadius, radius, bezel, markScaleH, markScaleW, textScale)
@@ -208,9 +208,10 @@ if show_analogue_clock then
 	end
 
 	local horizontalShift = screenWidth/2
-	local verticalShift = screenHeight*2/3
+	local verticalShift = screenHeight*0.6
 
 	local layer = createLayer()
+	setDefaultTextAlign(layer, 1, 3)
 	setLayerTranslation(layer,horizontalShift,verticalShift)
 	
 	local turnAngle = 0
@@ -243,19 +244,19 @@ if show_analogue_clock then
 	--draw arrows
 	local hourLayer = createLayer()
 	setLayerTranslation(hourLayer,horizontalShift,verticalShift)
-	setDefaultFillColor(hourLayer, 6, clockArrowkColor[1], clockArrowkColor[2], clockArrowkColor[3], clockArrowkColor[4])
+	setDefaultFillColor(hourLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(hourLayer, hour / 6 * math.pi + turnAngle)
 	addQuad(hourLayer, -5, 0, 5, 0, 5, -clockRadius*0.6, -5, -clockRadius*0.6)
 	
 	local minuteLayer = createLayer()
 	setLayerTranslation(minuteLayer,horizontalShift,verticalShift)
-	setDefaultFillColor(minuteLayer, 6, clockArrowkColor[1], clockArrowkColor[2], clockArrowkColor[3], clockArrowkColor[4])
+	setDefaultFillColor(minuteLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(minuteLayer, minute / 30 * math.pi + turnAngle)
 	addQuad(minuteLayer, -3, 0, 3, 0, 3, -clockRadius*0.8, -3, -clockRadius*0.8)
 	
 	local secondLayer = createLayer()
 	setLayerTranslation(secondLayer,horizontalShift,verticalShift)
-	setDefaultFillColor(secondLayer, 6, clockArrowkColor[1], clockArrowkColor[2], clockArrowkColor[3], clockArrowkColor[4])
+	setDefaultFillColor(secondLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
 	setLayerRotation(secondLayer, second / 30 * math.pi + turnAngle)
 	addQuad(secondLayer, -2, 0, 2, 0, 2, -clockRadius, -2, -clockRadius)
 	
