@@ -258,7 +258,7 @@ if show_analogue_clock then
 		setLayerTranslation(hourLayer,horizontalShift,verticalShift)
 	end
 	setDefaultFillColor(hourLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
-	setLayerRotation(hourLayer, hour / 6 * math.pi + turnAngle)
+	setLayerRotation(hourLayer, (hour + minute / 60) / 6 * math.pi + turnAngle)
 	local arrowLength = clockRadius*0.55
 	local arrowHalfWidth = clockRadius*0.05
 	addQuad(hourLayer, -arrowHalfWidth, arrowLength/10, arrowHalfWidth, arrowLength/10, arrowHalfWidth/2, -arrowLength, -arrowHalfWidth/2, -arrowLength)
@@ -270,7 +270,7 @@ if show_analogue_clock then
 		setLayerTranslation(minuteLayer,horizontalShift,verticalShift)
 	end
 	setDefaultFillColor(minuteLayer, 6, clockArrowColor[1], clockArrowColor[2], clockArrowColor[3], clockArrowColor[4])
-	setLayerRotation(minuteLayer, minute / 30 * math.pi + turnAngle)
+	setLayerRotation(minuteLayer, (minute + second / 60) / 30 * math.pi + turnAngle)
 	local arrowLength = clockRadius*0.8
 	local arrowHalfWidth = clockRadius*0.03
 	addQuad(minuteLayer, -arrowHalfWidth, arrowLength/10, arrowHalfWidth, arrowLength/10, arrowHalfWidth/2, -arrowLength, -arrowHalfWidth/2, -arrowLength)
