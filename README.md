@@ -38,5 +38,6 @@ local analogue_clock_arrow_night_color = "#fff"
 local analogue_clock_font_size = 50
 ```
 5. connect "detection zone" to the PB
-![image](https://user-images.githubusercontent.com/26741332/165934111-fb020628-881b-435a-985a-58a2c076a1b8.png)
+![image](https://user-images.githubusercontent.com/26741332/166213655-f7bd5106-3c06-4407-bad6-93bf36bbd159.png)
+
 
