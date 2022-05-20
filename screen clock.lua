@@ -123,7 +123,7 @@ local hour, minute, second = processData(dataFromPB)
 
 local screenColor, clockNumberColor, clockNameColor
 
-if hour > day_time and hour < night_time then
+if hour >= day_time and hour < night_time then
 	screenColor = hex2rgb(screen_day_color)
 	clockNameColor = hex2rgb(clock_name_day_color)
 	clockNumberColor = hex2rgb(clock_number_day_color)
@@ -148,7 +148,7 @@ if show_analogue_clock then
 
 	local clockCircleColor, clockMarkColor, clockArrowColor
 	
-	if hour > day_time and hour < night_time then
+	if hour >= day_time and hour < night_time then
 		clockCircleColor = hex2rgb(analogue_clock_circle_day_color)
 		clockMarkColor = hex2rgb(analogue_clock_mark_day_color)
 		clockArrowColor = hex2rgb(analogue_clock_arrow_day_color)
