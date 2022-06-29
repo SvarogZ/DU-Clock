@@ -5,8 +5,8 @@ local screens = {}
 -------------------------
 local function initiateSlots()
 	for _, slot in pairs(unit) do
-		if type(slot) == "table" and type(slot.export) == "table" and slot.getElementClass then
-			local elementClass = slot.getElementClass():lower()
+		if type(slot) == "table" and type(slot.export) == "table" and slot.getClass then
+			local elementClass = slot.getClass():lower()
 			if elementClass == "screenunit" then
 				table.insert(screens,slot)
 			end
@@ -17,7 +17,7 @@ local function initiateSlots()
 		error("No screen connected!")
 	end
 	
-	table.sort(screens, function (a, b) return (a.getId() < b.getId()) end)
+	table.sort(screens, function (a, b) return (a.getLocalId() < b.getLocalId()) end)
 end
 
 -------------------------
@@ -26,6 +26,5 @@ end
 initiateSlots()
 
 for _, screen in ipairs(screens) do
-	--screen.setScriptInput(tostring(system.getTime()))
 	screen.setScriptInput(tostring(system.getArkTime()))
 end
