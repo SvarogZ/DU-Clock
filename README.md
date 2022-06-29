@@ -3,7 +3,7 @@ Dual Universe clock with real and in-game time
 
 **How to install**
 1. Connect up to 10 screens to the programming board (PB)
-2. Copy content of the "pb clock.lua" to unit.start in the PB
+2. Copy content of the "pb clock.lua" to unit.onStart in the PB
 3. Copy content of the "screen clockn.lua" to every screen
 4. Adjust next parameters in the screen
 ```
