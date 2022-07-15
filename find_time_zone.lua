@@ -1,3 +1,4 @@
+-- Script helps to find the time offset on the surface of a planet
 -- works with any dynamic construct
 local worldWest = {0,1,0}
 local worldVertical = core.getWorldVertical()
