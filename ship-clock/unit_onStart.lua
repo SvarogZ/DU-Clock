@@ -39,27 +39,30 @@ function updateTime()
 	
 	local stringToSend = tostring(system.getArkTime())
 	
-	local worldVertical = core.getWorldVertical()
-	local worldVerticalVec = -vec3(worldVertical)
+	if core then
 	
-	if worldVerticalVec:len() > 0.1 then
-	
-		local worldVerticalVecProj = worldVerticalVec:project_on_plane(worldNorthVec)
-
-		local function angle_between(vector1,vector2)
-			return math.acos(utils.clamp(vector1:dot(vector2) / (vector1:len() * vector2:len()),-1,1))
-		end
-
-		local angle = angle_between(worldVerticalVecProj,worldUtcZeroVec)
-		local timeOffset = angle / math.pi * 12 - 2 -- 2 hour shift
-
-		local sign = worldNorthVec:cross(worldUtcZeroVec):dot(worldVerticalVecProj)
-
-		if sign < 0 then
-			timeOffset = -timeOffset
-		end
+		local worldVertical = core.getWorldVertical()
+		local worldVerticalVec = -vec3(worldVertical)
 		
-		stringToSend = stringToSend..","..tostring(timeOffset)
+		if worldVerticalVec:len() > 0.1 then
+		
+			local worldVerticalVecProj = worldVerticalVec:project_on_plane(worldNorthVec)
+
+			local function angle_between(vector1,vector2)
+				return math.acos(utils.clamp(vector1:dot(vector2) / (vector1:len() * vector2:len()),-1,1))
+			end
+
+			local angle = angle_between(worldVerticalVecProj,worldUtcZeroVec)
+			local timeOffset = angle / math.pi * 12 - 2 -- 2 hour shift
+
+			local sign = worldNorthVec:cross(worldUtcZeroVec):dot(worldVerticalVecProj)
+
+			if sign < 0 then
+				timeOffset = -timeOffset
+			end
+			
+			stringToSend = stringToSend..","..tostring(timeOffset)
+		end
 	end
 	
 	for _, screen in ipairs(screens) do
