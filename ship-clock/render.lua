@@ -1,9 +1,9 @@
 -------------------------
 -- USER DEFINED DATA ----
 -------------------------
-local clock_name = "UTC"--export: clock name
-local time_offset = 0 --export: time offsset in hours
-local in_game_time = false --export: select false if real time
+local clock_name = "Ship Time"--export: clock name
+local time_offset = 6.21 --export: time offsset in hours
+local in_game_time = true --export: select false if real time
 
 local show_analogue_clock = true --export: select to show analogue 12 hour clock
 
@@ -112,8 +112,8 @@ local function processData(dataFromPbString)
 			currentTime = currentTime + deltaTime
 		end
 		
-		local time_offset = dataFromPb[2] or time_offset
-		
+		local timeOffset = dataFromPb[2] and dataFromPb[2]*day_duration/24 or time_offset
+
 		if deltaTime == 0 then deltaTime = 1 end
 		local factor = day_duration / 24 / deltaTime 
 		
@@ -127,7 +127,7 @@ local function processData(dataFromPbString)
 
 		requestAnimationFrame(fps)
 		
-		return getTime(currentTime, time_offset, day_duration)
+		return getTime(currentTime, timeOffset, day_duration)
 	else
 		return 0,0,0
 	end
