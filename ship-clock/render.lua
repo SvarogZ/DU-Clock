@@ -112,7 +112,7 @@ local function processData(dataFromPbString)
 			currentTime = currentTime + deltaTime
 		end
 		
-		local timeOffset = dataFromPb[2] and dataFromPb[2]*day_duration/24 or time_offset
+		local timeOffset = in_game_time and dataFromPb[2] and dataFromPb[2]*day_duration/24 or time_offset
 
 		if deltaTime == 0 then deltaTime = 1 end
 		local factor = day_duration / 24 / deltaTime 
