@@ -2,7 +2,7 @@
 -- USER DEFINED DATA ----
 -------------------------
 local clock_name = "Ship Time"--export: clock name
-local time_offset = 6.21 --export: time offsset in hours
+local time_offset = 0 --export: time offsset in hours
 local in_game_time = true --export: select false if real time
 
 local show_analogue_clock = true --export: select to show analogue 12 hour clock
