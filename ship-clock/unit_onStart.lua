@@ -1,6 +1,7 @@
 local update_time = 1 --export: update time in seconds
 
 local screens = {}
+local core
 
 -------------------------
 -- FUNCTIONS ------------
@@ -9,7 +10,9 @@ local function initiateSlots()
 	for _, slot in pairs(unit) do
 		if type(slot) == "table" and type(slot.export) == "table" and slot.getClass then
 			local elementClass = slot.getClass():lower()
-			if elementClass == "screenunit" then
+			if elementClass:find("coreunit") then
+				core = slot
+			elseif elementClass == "screenunit" then
 				table.insert(screens,slot)
 			end
 		end
@@ -68,15 +71,3 @@ end
 -- UPDATE TIMER ------
 -------------------------
 unit.setTimer("update", update_time)
-
-
-
-
-
-
-
-
-
-
-
-
