@@ -25,6 +25,8 @@ end
 -------------------------
 initiateSlots()
 
+local stringToSend = tostring(system.getArkTime())
+
 for _, screen in ipairs(screens) do
-	screen.setScriptInput(tostring(system.getArkTime()))
+	screen.setScriptInput(stringToSend)
 end
